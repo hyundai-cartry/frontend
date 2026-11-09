@@ -1,57 +1,100 @@
-# CARTRY frontend
+# CARTRY
 
-CARTRY 는 현대자동차그룹 **Pleos Connect** 차량 화면에서 도는 학습 앱이다. 주차 중에만 열리고, 앱이 미션을 내면 운전자가 차의 실제 버튼·페달을 조작하고 차가 그 결과를 앱에 알려 준다.
-이 저장소는 그 앱의 화면 쪽 코드다. **웹이 아니라 안드로이드 앱(Kotlin)** 이다.
+**내 차의 기능, 직접 해보며 익히다.** — *Learn Your Car by Doing.*
 
-## 용어
+CARTRY 는 운전자에게 필요한 차량 기능을 맞춤형으로 추천하고, 실제 차량 조작과 차량 상태 피드백으로 사용법을 익히게 하는 차량용 학습 앱입니다. 현대자동차그룹 **Pleos Connect** 위에서 동작하며, 모든 실습은 주차 중에만 진행합니다.
 
-| 용어 | 뜻 |
+앱이 "앞유리가 뿌옇게 됐어요. 필요한 기능을 켜보세요." 같은 미션을 내면, 운전자는 주차된 내 차에서 실제 버튼과 레버를 조작합니다. CARTRY 는 Pleos Connect Vehicle SDK 로 바뀐 차량 상태를 읽어 목표를 달성했는지 판정하고, 비슷한 다른 기능을 눌렀다면 "지금은 뒷유리 열선이 켜졌어요."처럼 실제로 무엇이 바뀌었는지 알려 줍니다.
+
+![CARTRY 공통 컴포넌트](designsystem/docs/gallery.png)
+
+## 왜 필요한가
+
+- 운전자는 차량 기능을 **필요한 순간에야 처음 찾습니다.** 비 오는 날 출발한 뒤에 와이퍼 레버를 이리저리 돌려 보고, 앞유리 김서림을 없애려다 뒷유리 열선을 켭니다.
+- 신차 기능의 상당수는 쓰이지 않습니다. J.D. Power 조사(2015, 신차 오너 4,200명)에서 33개 기술 기능 중 16개를 오너의 20% 이상이 구매 후 90일 동안 한 번도 쓰지 않았습니다.
+- 알고 있어도 작동 방식은 모르는 경우가 많습니다. 미국 아이오와대 조사(운전자 2,015명)에서 40% 가 차가 예상과 다르게 작동한 경험이 있다고 답했습니다.
+- 설명서와 영상만으로는 **내 차의 어느 버튼인지, 제대로 작동시켰는지** 운전자가 스스로 판단해야 합니다.
+- 불편에서 끝나지 않습니다. 비 오는 날 교통사고 치사율은 맑은 날의 약 1.3배입니다(한국교통안전공단, 2023~2025).
+
+## 주요 기능
+
+| 기능 | 하는 일 |
 | --- | --- |
-| Android Studio | 안드로이드 앱을 만드는 공식 개발 프로그램 |
-| SDK | 앱이 차 기능을 쓰게 해 주는 라이브러리 묶음. CARTRY 는 Pleos 의 **Vehicle SDK** 로 차 상태(페달·기어·버튼)를 읽는다 |
-| minSdk | 앱이 설치될 수 있는 가장 낮은 안드로이드 버전 |
-| Gradle | 안드로이드 프로젝트를 빌드(코드를 설치 파일로 만드는 일)하는 도구 |
-| Pleos Connect Emulator | PC 에서 Pleos 차 화면을 흉내 내는 가상 기기. Android Studio 안에서 실행한다 |
-| Virtual Console | 에뮬레이터에 붙여 기어·페달·공조 같은 차 상태를 바꿔 보는 웹 화면 |
-| GitHub Actions / workflow | PR 이 올라오면 GitHub 서버에서 자동으로 실행되는 작업. 이 저장소에서는 Claude 코드 리뷰가 이걸로 실행된다 |
-| secret | GitHub Actions 가 읽는 비밀값 저장 칸. 저장소 admin 만 넣을 수 있다 |
+| 차량 상태 기반 학습 피드백 | 운전자가 실제 버튼·레버를 조작하면 차량 상태로 성공을 판정합니다. 다른 기능을 조작했으면 실제로 바뀐 상태와 목표 기능의 차이를 알려 주고, 기능 설명 → 아이콘 비교 → 조작 위치 안내의 3단계 힌트로 스스로 찾게 합니다 |
+| 날씨 기반 학습 추천 | 현재 위치의 날씨로 출발 전에 알아 두면 좋은 기능을 홈 화면에 추천합니다. 비 오는 날 와이퍼, 추운 날 앞유리 김서림 제거, 안개 낀 날 전조등·안개등 |
+| 숙련도별 학습 추천 | 처음 실행할 때 초보·능숙 코스를 고릅니다. 초보 운전자에게는 기본 조작 튜토리얼과 아직 익히지 않은 기본 기능을, 능숙 운전자에게는 드라이브 모드·운전 자세 메모리처럼 모르고 지나치기 쉬운 편의 기능을 추천합니다. 코스는 언제든 바꿀 수 있고 학습 기록은 유지됩니다 |
+| AI 기반 학습 검색 | "차 유리에 김이 꼈어"처럼 기능 이름을 몰라도 글이나 음성으로 상황을 말하면 맞는 학습 미션으로 연결합니다 |
+| 학습 기록·성취 관리 | 기능별 완료 여부와 힌트 사용 기록을 저장합니다. 힌트를 썼던 기능은 힌트 없이 다시 도전하도록 안내하고, 서로 다른 기능의 완료 개수로 등급 배지를 줍니다(왕초보 → 초보 탈출 → 자동차의 신) |
+| 주행 이력 기반 복습 추천 | 주행 중 와이퍼 대신 방향지시등·워셔액을 여러 번 작동시켰다면, 주차 후 "아까 와이퍼를 켜려고 하셨나요?"라며 복습을 제안합니다 (확장 기능) |
 
-## 기술 틀 (Pleos 개발자 문서 원문 기준, 2026-11-10 확인)
+## 차량 상태 판정 방식
 
-| 항목 | 값 | 출처 |
+CARTRY 는 차량의 모든 상태를 보지 않고, 미션마다 성공 판정에 필요한 **목표 상태**와 헷갈리기 쉬운 **혼동 후보 상태**만 골라 감지합니다. 상태 변경 리스너가 있는 기능은 리스너로, 없는 기능은 미션 진행 중에만 주기적으로 조회합니다. 학습을 시작하기 전에 Vehicle SDK 의 Capability API 로 이 차가 해당 기능을 지원하는지 확인합니다.
+
+| 미션 | 목표 상태 | 혼동 후보 | Vehicle SDK |
+| --- | --- | --- | --- |
+| 앞유리 김서림 제거 | 앞유리 디프로스터 ON | 뒷유리 열선 ON, 풍량 변경 | `getHvacDefrosterState`, `registerHvacDefrosterState`, `registerHvacFanSpeed` |
+| 와이퍼 조작 | 앞유리 와이퍼 AUTO | LOW·HIGH 등 다른 모드, 후면 와이퍼 | `getCurrentWiperSwitch`, `getCurrentWiperState` |
+| 뒷좌석 창문 조작 잠금 | 창문 조작 잠금 ON | 창문 위치 변경, 도어 잠금 변경 | `getCurrentWindowLockState`, `registerWindowLockState`, `registerWindowPosition` |
+
+## 구현 범위
+
+| 단계 | 내용 | 상태 |
 | --- | --- | --- |
-| 개발 도구 | Android Studio, 새 프로젝트 → Car/Automotive 카테고리 → Empty Activity | [Pleos Connect 앱 개발 시작하기](https://document.pleos.ai/docs/pleos-only/getting-started) |
-| 언어 | Kotlin (Java 도 가능) | 같은 문서, [에뮬레이터 설치 및 실행](https://document.pleos.ai/docs/connect/guide/getting-started/application-development/setup-connect-sdk-emulator) |
-| minSdk | Android API 28 이상 (차량 보안 요건) | 에뮬레이터 설치 및 실행 |
-| Gradle | 8.0 이상 | 에뮬레이터 설치 및 실행 |
-| 에뮬레이터 | Pleos Connect Emulator 2.1.0, Android API 34 system image, RAM 4GB, Cold boot | 에뮬레이터 설치 및 실행 |
-| Vehicle SDK | `ai.pleos.playground:Vehicle:2.3.2`, 저장소 `https://nexus-playground.pleos.ai/repository/maven-releases/` | [Importing Vehicle SDK](https://document.pleos.ai/docs/pleos-only/connect-sdk-pleos/Vehicle/project-setup) |
-| 공식 샘플 앱 기준 | JDK 17, Gradle wrapper 8.10.2, Android Gradle Plugin 8.8.2, Kotlin 2.0.0, compileSdk·targetSdk 35 | [Vehicle SDK Sample App](https://document.pleos.ai/docs/pleos-only/tutorial/vehicle-sdk-sample-app) |
-| 화면 | 기본 화면 Connect-S-17 = 17인치 160dpi, 2560×1440dp (1dp = 1px). 앱 창은 가로 1700×1184dp, 세로 840×1184dp, 주차 중 전체 화면은 2560 폭 | Pleos 디자인 가이드 해상도 표 |
+| 공통 화면 부품 | 디자인 토큰, 공통 컴포넌트, 아이콘 87개 ([designsystem](designsystem/README.md)) | 완료 |
+| 1단계 | 앞유리 김서림 제거 · 와이퍼 조작 · 뒷좌석 창문 조작 잠금 미션 + 날씨 기반 추천 | 진행 중 |
+| 1단계 | 능숙 운전자 편의 기능 미션 1개 | 진행 중 |
+| 2단계 | 숙련도별 추천, AI 학습 검색, 학습 기록·배지 통합, 학습 콘텐츠 확대 | 계획 |
+| 3단계 | 주행 이력 기반 복습 추천 | 계획 |
 
-**에뮬레이터는 외장 그래픽 카드가 필수다.** 최소 NVIDIA RTX 3060 Laptop 6GB 또는 AMD RX 6600M 8GB, 권장 RTX 4060 Laptop 8GB 이상
-([에뮬레이터 설정](https://document.pleos.ai/docs/connect/guide/getting-started/application-development/configure-pleos-connect-emulator)).
-내장 그래픽만 있는 노트북에서는 렉이 심하다. 공통 컴포넌트·화면 작업은 Android Studio 의 미리보기 창으로 에뮬레이터 없이 확인할 수 있고, 차 연동 테스트만 사양이 되는 PC 에서 한다.
+## 기술 스택과 구조
 
-## 프로젝트 틀을 올리는 사람에게
+| 영역 | 사용 기술 |
+| --- | --- |
+| 앱 | Android Automotive OS 기반 Pleos Connect 네이티브 앱, Kotlin, Jetpack Compose |
+| 차량 연동 | Pleos Connect Vehicle SDK 2.3.2 (상태 조회 get, 변경 리스너 register, Capability API) |
+| 위치·음성 | Pleos FusedLocation SDK, Pleos SpeechToText / TextToSpeech SDK |
+| 외부 데이터 | 기상청 단기예보 조회서비스 |
+| 로컬 저장 | Room (학습 기록), DataStore (코스 설정) |
+| 외부 백엔드 | Spring Boot, PostgreSQL |
+| 테스트 | Pleos Connect Emulator, Virtual Console |
 
-이 저장소에는 이미 커밋이 있다(README·리뷰 설정). 빈 폴더에서 `git init` 후 push 하면 거절된다. 아래 순서로 한다.
+```mermaid
+%%{init: {"flowchart": {"wrappingWidth": 440}}}%%
+flowchart TB
+    UI["화면 · Jetpack Compose<br/>홈 · 미션 · 3단계 힌트 · 검색 · 학습 기록"]
+    EN["앱 내부 학습 로직<br/>Mission Engine — 목표·혼동 상태 판정<br/>Recommendation Engine — 날씨·숙련도·기록 기반 추천<br/>Search Engine — 키워드·자연어 검색<br/>Learning Engine — 기록·재도전·배지<br/>Capability Manager — 차량 기능 지원 확인<br/>Safety Manager — 주차 중에만 실습"]
+    VR[Vehicle Repository]
+    WR[Weather Repository]
+    LR[Learning Repository]
+    SDK[Pleos Connect Vehicle SDK]
+    EXT["FusedLocation SDK<br/>기상청 단기예보"]
+    DB[(Room · DataStore)]
+    UI <--> EN
+    EN <--> VR & WR & LR
+    VR <--> SDK
+    WR <--> EXT
+    LR <--> DB
+```
 
-1. `git clone https://github.com/hyundai-cartry/frontend.git`
-2. Android Studio 에서 새 프로젝트를 만들 때 **저장 위치를 clone 한 `frontend` 폴더**로 지정한다.
-3. 브랜치를 만들어 push 하고 PR 을 연다.
+## 저장소 구성
 
-이미 다른 폴더에 프로젝트를 만들었다면 그 폴더에서 `git remote add origin https://github.com/hyundai-cartry/frontend.git` 후 `git pull origin main --allow-unrelated-histories` 로 이 커밋을 받아 합친 다음 push 한다.
+```
+frontend/
+├─ designsystem/   디자인 토큰 · 공통 컴포넌트 · 아이콘 (Jetpack Compose)
+├─ CONTRIBUTING.md 팀 작업 안내 (개발 환경, 브랜치·PR 규칙, 코드 리뷰)
+└─ .github/        PR 자동 코드 리뷰 설정
+```
 
-## 브랜치와 PR
+## 실행 환경
 
-- 브랜치 이름: `feat/기능이름` (새 기능), `fix/기능이름` (고침)
-- main 에 직접 push 하지 않고 PR 로 올린다.
+- Android Studio, JDK 17, Kotlin
+- Pleos Connect Emulator 2.1.0 (Android API 34 system image), 앱 minSdk 28 이상
+- 에뮬레이터는 외장 그래픽 카드가 필요합니다. 자세한 설정은 [CONTRIBUTING](CONTRIBUTING.md#개발-환경-pleos-개발자-문서-원문-기준-2026-11-10-확인)
 
-## Claude 코드 리뷰
+## 참고
 
-PR 을 열거나 새 커밋을 올리면 `.github/workflows/claude-code-review.yml` 이 실행되어 Claude 가 PR 에 리뷰 코멘트를 단다. 리뷰 기준은 [`CLAUDE.md`](CLAUDE.md) 에 있다.
-
-- 이미 Claude 코멘트가 달린 PR, draft PR, 닫힌 PR 은 다시 리뷰하지 않는다.
-- 동작하려면 저장소 admin 이 두 가지를 해 둬야 한다: Claude GitHub 앱 설치(https://github.com/apps/claude), 저장소 secret `CLAUDE_CODE_OAUTH_TOKEN` 등록(`claude setup-token` 으로 만든 값).
-- 설정 출처: https://code.claude.com/docs/en/github-actions
+- [Pleos Connect 개발자 문서](https://document.pleos.ai/docs/pleos-only/getting-started), [Vehicle SDK](https://document.pleos.ai/docs/pleos-only/connect-sdk-pleos/Vehicle/intro)
+- J.D. Power (2015). *2015 Driver Interactive Vehicle Experience (DrIVE) Report*
+- University of Iowa Public Policy Center (2015). *National Consumer Survey of Driving Safety Technologies*
+- 한국교통안전공단 교통사고분석시스템(TAAS). 2023~2025년 기상상태별 교통사고 통계
