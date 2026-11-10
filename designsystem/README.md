@@ -117,7 +117,7 @@ fun GalleryPreview() = CartryTheme { CartryComponentGallery() }
 | `CartryListRow` | row | 3D 아이콘 + 제목 + 설명 + 꺾쇠 |
 | `CartryModal` · `CartryDialog` | modal | 검정 55% 막 + 가운데 패널 · 아이콘→제목→설명→버튼 확인 창 |
 | `CartryAppHeader` | apphead | 뒤로 · 앱 아이콘 · CARTRY · 화면 이름 · 더보기 |
-| `CartrySwitch` | sw | 켜고 끄는 스위치 104×56 |
+| `CartrySwitch` | sw | 켜고 끄는 스위치. 보이는 막대 104×56, 누르는 영역 104×76 |
 | `CartryBadge` · `CartryTag` | pill · xp · tag | 알약 배지(solid · soft) · 파란 글자 꼬리표 |
 | `CartryText` | (h1 · lead) | 여러 줄 한국어 문장. 띄어쓰기 자리에서만 줄을 바꾸고, 말풍선 제목은 줄 길이를 고르게 맞춘다 |
 | `CartryIcons.*` | i3-* · p-* | 3D 아이콘 44개(`I3…`), 선 아이콘 42개(`Line…`, tint 로 색을 입힌다), 앱 아이콘 1개 |

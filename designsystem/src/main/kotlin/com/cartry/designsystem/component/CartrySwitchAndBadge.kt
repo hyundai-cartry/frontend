@@ -2,7 +2,10 @@ package com.cartry.designsystem.component
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -14,6 +17,7 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,18 +29,28 @@ import androidx.compose.ui.unit.dp
 import com.cartry.designsystem.theme.CartryTheme
 
 /**
- * 켜고 끄는 스위치. 104×56, 손잡이 44.
+ * 켜고 끄는 스위치. 보이는 막대는 104×56, 손잡이 44.
+ * 누르는 영역은 막대 위아래로 10씩 넓힌 104×76(space.minTouch)이다. 차량 화면 규칙이 누르는 영역 76 이상이라서다.
+ * 그래서 이 컴포넌트의 레이아웃 크기도 104×76 이고, 막대는 그 가운데에 그려진다.
  * 켜짐 = 파랑(시안 값). 꺼짐 색은 시안에 없어서 진행 막대 빈 칸 색(#686A72)으로 정했다.
  */
 @Composable
 fun CartrySwitch(checked: Boolean, onCheckedChange: (Boolean) -> Unit, modifier: Modifier = Modifier, enabled: Boolean = true) {
     val c = CartryTheme.colors
     val x by animateDpAsState(if (checked) 54.dp else 6.dp, label = "switch")
+    // 누르는 곳은 바깥 76 상자, 눌림 표시는 막대 모양 안에만 그린다
+    val interaction = remember { MutableInteractionSource() }
     Box(
-        modifier.size(104.dp, 56.dp).clip(CartryTheme.shapes.pill).background(if (checked) c.goal else c.surfaceTrack)
-            .toggleable(value = checked, enabled = enabled, role = Role.Switch, onValueChange = onCheckedChange),
+        modifier.size(104.dp, CartryTheme.space.minTouch)
+            .toggleable(value = checked, interactionSource = interaction, indication = null, enabled = enabled, role = Role.Switch, onValueChange = onCheckedChange),
+        contentAlignment = Alignment.Center,
     ) {
-        Box(Modifier.offset(x = x, y = 6.dp).size(44.dp).background(Color.White, CartryTheme.shapes.circle))
+        Box(
+            Modifier.size(104.dp, 56.dp).clip(CartryTheme.shapes.pill).background(if (checked) c.goal else c.surfaceTrack)
+                .indication(interaction, LocalIndication.current),
+        ) {
+            Box(Modifier.offset(x = x, y = 6.dp).size(44.dp).background(Color.White, CartryTheme.shapes.circle))
+        }
     }
 }
 
