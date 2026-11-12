@@ -16,9 +16,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cartry">
+        <!-- Pleos 는 screenOrientation 을 정하지 않으면 앱을 세로 창 1칸(17인치 기준 840×1184dp)으로 연다.
+             landscape 로 정하면 창 2칸을 합친 가로 창(17인치 기준 1700×1184dp)을 쓴다.
+             출처: Pleos 앱 구조 및 동작 모델 문서, FormFactorConsole (2026-11-12 확인) -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,6 +29,7 @@ import com.cartry.designsystem.theme.CartryTheme
  * 앱 헤더. 왼쪽부터 [뒤로] 앱 아이콘 · CARTRY | 화면 이름, 오른쪽 끝 [···] 더보기.
  * 높이 112, 좌우 여백 96(뒤로 버튼이 있으면 84 에서 시작), 원형 버튼 76.
  * onBack 이 null 이면 뒤로 버튼을 그리지 않는다(홈 화면).
+ * actions 에는 더보기 왼쪽에 놓을 것(홈의 진행률·검색창·로드맵·설정)을 넣는다.
  */
 @Composable
 fun CartryAppHeader(
@@ -36,6 +38,7 @@ fun CartryAppHeader(
     onBack: (() -> Unit)? = null,
     onMore: (() -> Unit)? = null,
     appName: String = "CARTRY",
+    actions: @Composable RowScope.() -> Unit = {},
 ) {
     val c = CartryTheme.colors
     val t = CartryTheme.type
@@ -56,6 +59,7 @@ fun CartryAppHeader(
         Box(Modifier.padding(horizontal = 6.dp).width(1.dp).height(36.dp).background(c.divider))
         BasicText(section, Modifier.padding(horizontal = 8.dp), style = t.bodySmall.copy(color = c.textSecondary), maxLines = 1)
         Spacer(Modifier.weight(1f))
+        actions()
         if (onMore != null) {
             CircleButton(onMore, "더보기") {
                 BasicText("···", style = t.body.copy(fontSize = 34.sp, letterSpacing = 2.sp, color = c.textSecondary))
