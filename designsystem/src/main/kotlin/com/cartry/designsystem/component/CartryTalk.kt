@@ -3,11 +3,9 @@ package com.cartry.designsystem.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
 import com.cartry.designsystem.icon.buddyVector
 import com.cartry.designsystem.theme.CartryTheme
 
@@ -64,10 +62,11 @@ fun CartryBuddy(mood: BuddyMood, modifier: Modifier = Modifier, rain: Boolean = 
 }
 
 /**
- * 카트리 말풍선(시안의 talk). 앱이 사용자에게 하는 말은 전부 이 말풍선으로 나온다.
+ * 카트리가 하는 말(시안의 talk). 화면 맨 위 제목과 설명이다. 시안 6.93 부터 말풍선 카드 없이 글자만 놓는다.
  *
- * - compact = false: 넓은 말풍선. 제목 60, 카트리는 말풍선 안 오른쪽 아래(170×129).
- * - compact = true : 왼쪽 좁은 열(미션 화면). 제목 56, 카트리는 「카트리」 이름 왼쪽(84×64).
+ * - compact = true : 왼쪽 글 칸(실습 화면). 제목 52 + 11 아래 설명 27. 카트리와 이름은 그리지 않는다(mood, speaker 무시).
+ * - compact = false: 넓은 화면(홈 등). 왼쪽 위에 카트리(96×72), 그 오른쪽에 파란 이름 「카트리」(26), 12 아래 제목 52.
+ *   카트리는 이름 줄보다 22 위로 올라가 그려진다(시안과 같다). 위에 22 이상 빈 곳을 둔다.
  */
 @Composable
 fun CartryTalk(
@@ -80,34 +79,28 @@ fun CartryTalk(
 ) {
     val c = CartryTheme.colors
     val t = CartryTheme.type
-    // 카트리는 말풍선 안쪽 여백 바깥(말풍선 테두리 기준)에 놓는다. 여백 안에 두면 높이가 눌려 작아진다.
     if (compact) {
-        CartrySurface(modifier.fillMaxWidth(), c.surface, sheen = false, elevation = CartryTheme.elevation.bubble) {
-            CartryBuddy(mood, Modifier.padding(start = 22.dp, top = 14.dp).size(84.dp, 64.dp))
-            Column(Modifier.padding(start = 32.dp, end = 32.dp, top = 30.dp, bottom = 38.dp)) {
-                Box(Modifier.padding(start = 96.dp).height(60.dp), contentAlignment = Alignment.CenterStart) {
-                    BasicText(speaker, style = t.label.copy(color = c.textTertiary))
-                }
-                Spacer(Modifier.height(7.dp))
-                CartryText(title, style = t.talkTitleCompact.copy(color = c.textPrimary), balance = true)
-                if (body != null) {
-                    Spacer(Modifier.height(16.dp))
-                    CartryText(body, style = t.lead.copy(color = c.textSecondary))
-                }
+        Column(modifier.fillMaxWidth()) {
+            CartryText(title, style = t.talkTitleCompact.copy(color = c.textPrimary), balance = true)
+            if (body != null) {
+                Spacer(Modifier.height(11.dp))
+                CartryText(body, style = t.lead.copy(color = c.lead))
             }
         }
     } else {
-        CartrySurface(modifier.fillMaxWidth().heightIn(min = 150.dp), c.surface, sheen = false, elevation = CartryTheme.elevation.bubble) {
-            Column(Modifier.padding(start = 44.dp, end = 220.dp, top = 44.dp, bottom = 38.dp)) {
-                BasicText(speaker, style = t.caption.copy(color = c.textTertiary))
-                Spacer(Modifier.height(8.dp))
+        Box(modifier.fillMaxWidth()) {
+            CartryBuddy(mood, Modifier.offset(y = (-22).dp).size(96.dp, 72.dp))
+            Column {
+                Box(Modifier.padding(start = 110.dp).height(40.dp), contentAlignment = Alignment.CenterStart) {
+                    BasicText(speaker, style = t.caption.copy(color = c.goal), maxLines = 1)
+                }
+                Spacer(Modifier.height(12.dp))
                 CartryText(title, style = t.talkTitle.copy(color = c.textPrimary), balance = true)
                 if (body != null) {
-                    Spacer(Modifier.height(16.dp))
-                    CartryText(body, style = t.lead.copy(color = c.textSecondary, lineHeight = 1.55.em))
+                    Spacer(Modifier.height(14.dp))
+                    CartryText(body, style = t.lead.copy(fontSize = 34.sp, lineHeight = 50.sp, color = c.lead))
                 }
             }
-            CartryBuddy(mood, Modifier.align(Alignment.BottomEnd).padding(end = 24.dp, bottom = 8.dp).size(170.dp, 129.dp))
         }
     }
 }

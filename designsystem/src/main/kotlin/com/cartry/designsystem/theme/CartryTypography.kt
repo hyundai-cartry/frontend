@@ -11,9 +11,14 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 
 /**
- * CARTRY 글자 스타일. 시안 49화면에서 실제로 쓰인 크기·굵기·줄 높이를 역할별로 이름 붙였다.
+ * CARTRY 글자 스타일. 역할마다 크기 하나를 정해 이름 붙였다.
  * 글꼴은 Pretendard 이다. 안드로이드 앱에서는 res/font 의 Pretendard 로 FontFamily 를 만들어 CartryTheme 에 넘긴다.
  * 시안의 px 는 Pleos 17인치(160dpi, 1dp = 1px) 기준이라 sp 로 그대로 옮겼다.
+ *
+ * 기준은 가로 1700 판(Figma 360:2, 앱 창 1700×1184)에서 화면에 보이는 크기다.
+ * 1700 판은 왼쪽 글 칸을 화면 종류마다 다른 비율로 줄여 그렸다(실습 화면 80%, 힌트 화면 92%, 단계 상승 화면 90%).
+ * 같은 부품이 화면마다 크기가 달라지지 않도록, 실습 화면에서 보이는 크기를 반올림한 값 하나로 정했다(2026-11-13 결정).
+ * 글자는 24 보다 작게 두지 않는다(pill 은 시안 6.93 에 없어진 부품이라 예전 값 그대로).
  *
  * 줄바꿈: 시안 CSS 는 제목에 `text-wrap: balance` + `word-break: keep-all`(어절 중간에서 끊지 않음), 본문에 keep-all 을 쓴다.
  * 그래서 제목은 LineBreak.Heading(줄 길이를 고르게 + 어절 단위), 본문은 LineBreak.Paragraph 를 쓴다.
@@ -24,33 +29,35 @@ import androidx.compose.ui.unit.sp
 data class CartryTypography(
     /** 큰 숫자(완료 수, 등급) 120/800 */
     val display: TextStyle,
-    /** 카트리 말풍선 제목, 넓은 말풍선 60/700/74 */
+    /** 화면 제목(카트리가 하는 말), 넓은 말 52/800/64 — 화면 제목은 어느 화면이든 52 */
     val talkTitle: TextStyle,
-    /** 카트리 말풍선 제목, 왼쪽 좁은 열 56/700/68 */
+    /** 화면 제목, 왼쪽 글 칸(실습 화면). talkTitle 과 같은 52/800/64 */
     val talkTitleCompact: TextStyle,
     /** 모달 제목 48/700/60 */
     val dialogTitle: TextStyle,
     /** 튜토리얼 타일 이름 46/700/56 */
     val tileTitle: TextStyle,
-    /** 카드 제목(홈 카드, 카테고리 타일) 44/700/54 */
+    /** 카드 제목(홈 카드, 코스 카드) 46/700/56 */
     val cardTitle: TextStyle,
-    /** 목록 행 제목 42/600 */
+    /** 목록 행 제목 42/600 (시안 6.93 에 목록 행이 없어 예전 값) */
     val rowTitle: TextStyle,
-    /** 상태 막대 이름 40/700 */
+    /** 상태 막대 이름 34/700 */
     val barTitle: TextStyle,
-    /** 진행 표시 단계 이름 40/600 */
+    /** 상태 막대 상태 글자 「진행 중」 29/400 */
+    val barStatus: TextStyle,
+    /** 진행 표시 단계 이름 32/600 */
     val progressTitle: TextStyle,
-    /** 진행 표시 「1/4」 40/800 */
+    /** 진행 표시 「1/4」 32/800 */
     val progressCounter: TextStyle,
     /** 설정 카드 제목, 모달 소제목 36/700/46 */
     val sectionTitle: TextStyle,
-    /** 말풍선 설명 36/400/48 */
+    /** 화면 제목 아래 설명 27/500/40 */
     val lead: TextStyle,
-    /** 본문 34/400/48 (모달 설명, 상태 막대 상태) */
+    /** 본문 34/400/48 (모달 설명) */
     val body: TextStyle,
-    /** 버튼 32/600 */
+    /** 버튼 30/600 */
     val button: TextStyle,
-    /** 앱 이름 「CARTRY」 32/700 */
+    /** 앱 이름 「CARTRY」 34/700, 자간 0.08em */
     val appName: TextStyle,
     /** 타일 설명 32/400/44 */
     val tileBody: TextStyle,
@@ -60,17 +67,18 @@ data class CartryTypography(
     val tag: TextStyle,
     /** 작은 본문 28/400 (헤더 화면 이름, 카드 설명) */
     val bodySmall: TextStyle,
-    /** 작은 라벨 28/700 (배지, 좁은 말풍선의 「카트리」) */
+    /** 작은 라벨 28/700 (배지) */
     val label: TextStyle,
-    /** 캡션 24/700 (넓은 말풍선의 「카트리」) */
+    /** 말하는 이 이름 「카트리」 26/800/40, 자간 0.08em */
     val caption: TextStyle,
     /** 완료 알약 22/600 — 시안 값 그대로. 글자 24 이상 규칙에 못 미친다(README 참고) */
     val pill: TextStyle,
 ) {
     companion object {
-        fun create(fontFamily: FontFamily = FontFamily.Default): CartryTypography {
-            fun s(size: Int, weight: Int, lineHeight: Int? = null, letterSpacing: TextUnit = TextUnit.Unspecified, heading: Boolean = false) = TextStyle(
-                fontFamily = fontFamily,
+        /** @param numberFontFamily 앱 이름, 「1/4」, 큰 숫자용 좁은 글꼴(시안의 Barlow Semi Condensed). 없으면 fontFamily */
+        fun create(fontFamily: FontFamily = FontFamily.Default, numberFontFamily: FontFamily = fontFamily): CartryTypography {
+            fun s(size: Int, weight: Int, lineHeight: Int? = null, letterSpacing: TextUnit = TextUnit.Unspecified, heading: Boolean = false, number: Boolean = false) = TextStyle(
+                fontFamily = if (number) numberFontFamily else fontFamily,
                 fontSize = size.sp,
                 fontWeight = FontWeight(weight),
                 lineHeight = lineHeight?.sp ?: TextUnit.Unspecified,
@@ -81,26 +89,27 @@ data class CartryTypography(
             )
             return CartryTypography(
                 display = s(120, 800, 120, (-0.05).em, heading = true),
-                talkTitle = s(60, 700, 74, (-0.015).em, heading = true),
-                talkTitleCompact = s(56, 700, 68, (-0.015).em, heading = true),
+                talkTitle = s(52, 800, 64, (-0.025).em, heading = true),
+                talkTitleCompact = s(52, 800, 64, (-0.025).em, heading = true),
                 dialogTitle = s(48, 700, 60, heading = true),
                 tileTitle = s(46, 700, 56, heading = true),
-                cardTitle = s(44, 700, 54, heading = true),
+                cardTitle = s(46, 700, 56, heading = true),
                 rowTitle = s(42, 600),
-                barTitle = s(40, 700),
-                progressTitle = s(40, 600),
-                progressCounter = s(40, 800),
+                barTitle = s(34, 700),
+                barStatus = s(29, 400),
+                progressTitle = s(32, 600),
+                progressCounter = s(32, 800, number = true),
                 sectionTitle = s(36, 700, 46, heading = true),
-                lead = s(36, 400, 48),
+                lead = s(27, 500, 40),
                 body = s(34, 400, 48),
-                button = s(32, 600),
-                appName = s(32, 700, letterSpacing = 0.01.em),
+                button = s(30, 600),
+                appName = s(34, 700, letterSpacing = 0.08.em, number = true),
                 tileBody = s(32, 400, 44),
                 rowBody = s(30, 400),
                 tag = s(30, 700, letterSpacing = 0.02.em),
                 bodySmall = s(28, 400),
                 label = s(28, 700, letterSpacing = 0.02.em),
-                caption = s(24, 700, letterSpacing = 0.02.em),
+                caption = s(26, 800, 40, letterSpacing = 0.08.em),
                 pill = s(22, 600),
             )
         }

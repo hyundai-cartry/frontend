@@ -3,9 +3,10 @@ package com.cartry.designsystem.theme
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 
 /**
- * CARTRY 다크 테마 색. 값은 UI 시안(시안2-v6-카트리.html, 다크)을 브라우저로 렌더링해 실제 적용된 값을 잰 것이다.
+ * CARTRY 다크 테마 색. 값은 UI 시안(6.93 가로 1700 판, 다크)을 브라우저로 렌더링해 실제 적용된 값을 잰 것이다.
  * 괄호 안은 시안 CSS 변수 이름이다.
  *
  * 색의 뜻은 고정이다: goal(파랑) = 힌트·목표·지금 할 일, success(초록) = 달성, danger(빨강) = 오작동.
@@ -49,9 +50,16 @@ data class CartryColors(
     val goalBright: Color = Color(0xFF3DA2FF),
     /** 파랑 글자 라벨(코스 이름 같은 꼬리표) */
     val goalLabel: Color = Color(0xFF8CC8FF),
-    /** 주 버튼 그라데이션 위·아래 */
+    /**
+     * 주 버튼 바탕, 목표 상태 막대의 왼쪽 줄. 시안 6.93 부터 주 버튼은 그라데이션 없이 이 색 한 가지다.
+     * goal(#0082FF)보다 조금 밝다. 시안 CSS 에 변수 없이 직접 적혀 있는 값이다.
+     */
+    val action: Color = Color(0xFF0A84FF),
+    /** 예전 주 버튼 그라데이션 위·아래(6.40). 지금은 primaryFill 이 action 한 색이라 쓰지 않는다 */
     val primaryTop: Color = Color(0xFF1A90FF),
     val primaryBottom: Color = Color(0xFF0078F0),
+    /** 말풍선 설명 글자 (rgba(247,250,255,.8)) */
+    val lead: Color = Color(0xCCF7FAFF),
 
     /** 초록: 달성 (--act) */
     val success: Color = Color(0xFF00E074),
@@ -72,9 +80,9 @@ data class CartryColors(
     val cardSheen: Brush
         get() = Brush.verticalGradient(0f to Color(0x13FFFFFF), 0.45f to Color(0x00FFFFFF), 1f to Color(0x1F000000))
 
-    /** 주 버튼 바탕 */
+    /** 주 버튼 바탕(action 한 색) */
     val primaryFill: Brush
-        get() = Brush.verticalGradient(listOf(primaryTop, primaryBottom))
+        get() = SolidColor(action)
 
     /** 모달 바탕 */
     val modalFill: Brush

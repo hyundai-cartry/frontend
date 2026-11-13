@@ -27,7 +27,7 @@ import com.cartry.designsystem.theme.CartryTheme
 
 /**
  * 앱 헤더. 왼쪽부터 [뒤로] 앱 아이콘 · CARTRY | 화면 이름, 오른쪽 끝 [···] 더보기.
- * 높이 112, 좌우 여백 96(뒤로 버튼이 있으면 84 에서 시작), 원형 버튼 76.
+ * 높이 112, 좌우 여백 56(뒤로 버튼이 있으면 44 에서 시작), 원형 버튼 76. 앱 창(가로 1700) 기준.
  * onBack 이 null 이면 뒤로 버튼을 그리지 않는다(홈 화면).
  * actions 에는 더보기 왼쪽에 놓을 것(홈의 진행률·검색창·로드맵·설정)을 넣는다.
  */
@@ -43,7 +43,7 @@ fun CartryAppHeader(
     val c = CartryTheme.colors
     val t = CartryTheme.type
     Row(
-        modifier.fillMaxWidth().height(112.dp).padding(start = if (onBack != null) 84.dp else 96.dp, end = 96.dp),
+        modifier.fillMaxWidth().height(112.dp).padding(start = if (onBack != null) 44.dp else 56.dp, end = 56.dp),
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

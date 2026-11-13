@@ -59,7 +59,7 @@ fun CartryStepTile(
             Modifier.offset(x = 4.dp, y = (-4).dp).size(52.dp).background(if (selected) Color.White else c.surfaceTrack, CartryTheme.shapes.circle),
             contentAlignment = Alignment.Center,
         ) { BasicText("$number", style = t.label.copy(fontSize = 28.sp, fontWeight = FontWeight(800), letterSpacing = 0.em, color = if (selected) c.goal else c.textPrimary)) }
-        Image(icon, null, Modifier.align(Alignment.TopCenter).padding(top = 24.dp).size(260.dp))
+        Image(icon, null, Modifier.align(Alignment.TopCenter).padding(top = 16.dp).size(260.dp))
         Column(Modifier.align(Alignment.BottomStart)) {
             CartryText(title, style = t.tileTitle.copy(color = c.textPrimary))
             Spacer(Modifier.height(10.dp))
