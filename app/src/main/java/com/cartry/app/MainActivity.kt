@@ -22,6 +22,6 @@ class MainActivity : ComponentActivity() {
 }
 
 /** 디자인 시스템 컴포넌트 모음. 미리보기 창에서만 본다. */
-@Preview(widthDp = 2560, heightDp = 3200)
+@Preview(widthDp = 1700, heightDp = 3320)
 @Composable
 fun GalleryPreview() = CartryTheme { CartryComponentGallery() }

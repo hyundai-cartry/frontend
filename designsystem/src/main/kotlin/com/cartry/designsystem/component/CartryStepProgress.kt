@@ -5,9 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,11 +18,12 @@ import androidx.compose.ui.unit.dp
 import com.cartry.designsystem.theme.CartryTheme
 
 /**
- * 진행 표시(시안의 prog). 위에 「1/4 브레이크」 캡션, 아래에 칸 막대.
- * 칸 하나는 150×14 고정이다(사용자 결정: 칸 폭은 화면 폭을 따라 늘어나지 않는다).
+ * 진행 표시(시안의 prog). 위 줄은 [카트리] 「1/4」 「엑셀/브레이크」, 아래는 칸 막대. 두 줄 사이 18.
+ * 글자 32, 카트리 58×43. 칸 하나는 160×14 고정이고 칸 사이 8 이다(사용자 결정: 칸 폭은 화면 폭을 따라 늘어나지 않는다).
  *
  * @param current 지금 단계(1부터). 이 칸은 파랑.
  * @param done 끝낸 단계 수. 1..done 칸은 초록. 지금 단계를 끝낸 순간에는 done = current.
+ * @param mood 맨 앞 카트리 표정. null 이면 카트리를 그리지 않는다.
  */
 @Composable
 fun CartryStepProgress(
@@ -31,22 +33,26 @@ fun CartryStepProgress(
     modifier: Modifier = Modifier,
     done: Int = current - 1,
     counter: String = "$current/$total",
+    mood: BuddyMood? = BuddyMood.Idle,
 ) {
     val c = CartryTheme.colors
-    Column(modifier, verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        Row(verticalAlignment = Alignment.Bottom) {
-            BasicText(counter, style = CartryTheme.type.progressCounter.copy(color = c.goal), maxLines = 1)
-            Spacer(Modifier.width(16.dp))
-            BasicText(title, style = CartryTheme.type.progressTitle.copy(color = c.textSecondary), maxLines = 1, overflow = TextOverflow.Ellipsis)
+    val t = CartryTheme.type
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        Row(Modifier.height(38.dp), horizontalArrangement = Arrangement.spacedBy(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            // 카트리(43)는 글자 줄(38)보다 커서 위아래로 조금 넘친다(시안도 같다)
+            if (mood != null) CartryBuddy(mood, Modifier.wrapContentHeight(unbounded = true).size(58.dp, 43.dp))
+            // 「1/4」 뒤는 칸 사이 14 에 13 을 더 띄운다(시안 b 의 margin-right)
+            BasicText(counter, Modifier.padding(end = 13.dp), style = t.progressCounter.copy(color = c.goal), maxLines = 1)
+            BasicText(title, style = t.progressTitle.copy(color = c.textSecondary), maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             for (i in 1..total) {
                 val color = when {
                     i <= done -> c.success
                     i == current -> c.goal
                     else -> c.surfaceTrack
                 }
-                Box(Modifier.size(width = 150.dp, height = 14.dp).background(color, CartryTheme.shapes.pill))
+                Box(Modifier.size(width = 160.dp, height = 14.dp).background(color, CartryTheme.shapes.pill))
             }
         }
     }

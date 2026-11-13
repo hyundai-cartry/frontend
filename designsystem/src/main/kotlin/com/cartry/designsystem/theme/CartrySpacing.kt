@@ -25,8 +25,8 @@ data class CartrySpacing(
     val s44: Dp = 44.dp,
     val s48: Dp = 48.dp,
     val s56: Dp = 56.dp,
-    /** 전체 화면(2560) 좌우 여백 = 화면 폭 3.75% */
-    val screenHorizontal: Dp = 96.dp,
+    /** 앱 창(가로 1700) 좌우 여백. 2560 전체 화면 시절에는 96 이었다 */
+    val screenHorizontal: Dp = 56.dp,
     /** 앱 헤더 높이 */
     val headerHeight: Dp = 112.dp,
     /** 누르는 영역 최소 크기 */
