@@ -2,17 +2,17 @@ package com.cartry.app.practice
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,18 +28,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.cartry.app.home.AppBackdrop
+import com.cartry.app.lesson.LessonPhotos
 import com.cartry.app.lesson.Lessons
 import com.cartry.app.lesson.ProgressPlaceholder
-import com.cartry.app.practice.component.CarPanel
 import com.cartry.app.practice.component.PracticeLeftPane
 import com.cartry.designsystem.component.CartryAppHeader
-import com.cartry.designsystem.component.CartryCard
 import com.cartry.designsystem.theme.CartryTheme
 
 /** 실습 화면. 미션·오작동·힌트·완료 4단계를 이 화면 하나가 [PracticeUiState.step] 에 따라 바꿔 그린다. */
@@ -75,16 +75,18 @@ fun PracticeContent(
     val c = CartryTheme.colors
     val s = CartryTheme.space
     Box(Modifier.fillMaxSize().background(c.background)) {
+        AppBackdrop()
         Column(Modifier.fillMaxSize()) {
             CartryAppHeader(section = "오늘의 추천", onBack = onBack, onMore = { /* 이번 범위 밖: 버튼만 둔다 */ })
+            // 시안: 왼쪽 글 칸 733 · 사이 28 · 오른쪽 사진 827, 아래 여백 44
             Row(
-                Modifier.weight(1f).fillMaxWidth().padding(horizontal = s.screenHorizontal, vertical = s.s24),
-                horizontalArrangement = Arrangement.spacedBy(s.s48),
+                Modifier.weight(1f).fillMaxWidth().padding(start = s.screenHorizontal, end = s.screenHorizontal, top = s.s20, bottom = s.s44),
+                horizontalArrangement = Arrangement.spacedBy(s.s28),
             ) {
                 // 단계가 바뀌면 왼쪽 전체를 크로스페이드(앞 화면이 사라지며 뒤 화면이 겹쳐 나타남)
                 AnimatedContent(
                     targetState = state.step,
-                    modifier = Modifier.weight(0.42f).fillMaxHeight(),
+                    modifier = Modifier.weight(0.47f).fillMaxHeight(),
                     transitionSpec = { fadeIn(tween(400)) togetherWith fadeOut(tween(250)) },
                     // 힌트 1 → 2 → 3 은 같은 화면에서 내용만 펼친다(왼쪽 전체를 크로스페이드하지 않음)
                     contentKey = { if (it is PracticeStep.Hint) "hint" else it },
@@ -102,7 +104,7 @@ fun PracticeContent(
                         onRetry = onRetry,
                     )
                 }
-                PracticeRightPane(state, Modifier.weight(0.58f).fillMaxHeight())
+                PracticeRightPane(state, Modifier.weight(0.53f).fillMaxHeight())
             }
         }
         CarToast(
@@ -113,40 +115,45 @@ fun PracticeContent(
     }
 }
 
-/** 오른쪽: 차 화면 흉내 + 완료 때 초록 빛과 달성률 카드. */
+/**
+ * 오른쪽: 차 화면 사진(시안 이미지). 단계가 바뀌면 사진을 크로스페이드한다.
+ * 완료 사진에는 초록 빛과 초록 꺾쇠가 이미 들어 있고, 그 위 왼쪽 위에 달성률 카드를 띄운다.
+ */
 @Composable
 private fun PracticeRightPane(state: PracticeUiState, modifier: Modifier) {
     val c = CartryTheme.colors
     val t = CartryTheme.type
     val s = CartryTheme.space
     val success = state.step == PracticeStep.Success
-    val glow by animateFloatAsState(if (success) 1f else 0f, tween(700), label = "successGlow")
 
-    Box(modifier) {
-        // 완료 때 패널 뒤로 퍼지는 초록 빛
-        Box(
-            Modifier.fillMaxSize().alpha(glow)
-                .background(Brush.radialGradient(listOf(c.successSoft, Color.Transparent)))
-        )
-        CarPanel(
-            lesson = state.lesson,
-            step = state.step,
-            targetOn = state.targetOn,
-            decoyOn = state.decoyOn,
-            modifier = Modifier.align(Alignment.Center).fillMaxWidth(),
-        )
-        AnimatedVisibility(visible = success, enter = fadeIn(tween(500)), exit = fadeOut(), modifier = Modifier.align(Alignment.TopStart)) {
-            CartryCard(contentPadding = PaddingValues(s.s24)) {
-                Column(verticalArrangement = Arrangement.spacedBy(s.s8)) {
-                    BasicText("내 차 기능 달성률", style = t.label.copy(color = c.textTertiary))
-                    Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(s.s8)) {
-                        BasicText("${ProgressPlaceholder.ACHIEVEMENT_PERCENT}", style = t.display.copy(color = c.success))
-                        BasicText("%", Modifier.padding(bottom = s.s20), style = t.sectionTitle.copy(color = c.textSecondary))
-                    }
+    Box(modifier.clip(CartryTheme.shapes.card).background(c.backgroundDeep)) {
+        Crossfade(state.lesson.photos.forStep(state.step), animationSpec = tween(400), label = "carPhoto") { photo ->
+            Image(painterResource(photo), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+        }
+        AnimatedVisibility(
+            visible = success,
+            enter = fadeIn(tween(500)),
+            exit = fadeOut(),
+            modifier = Modifier.align(Alignment.TopStart).padding(start = s.s48, top = s.s40),
+        ) {
+            Column(
+                Modifier.clip(CartryTheme.shapes.card).background(c.panelOnPhoto).padding(horizontal = s.s28, vertical = s.s20),
+            ) {
+                BasicText("내 차 기능 달성률", style = t.button.copy(color = c.textSecondary))
+                Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(s.s8)) {
+                    BasicText("${ProgressPlaceholder.ACHIEVEMENT_PERCENT}", style = t.display.copy(color = c.success))
+                    BasicText("%", Modifier.padding(bottom = s.s20), style = t.sectionTitle.copy(color = c.textTertiary))
                 }
             }
         }
     }
+}
+
+private fun LessonPhotos.forStep(step: PracticeStep) = when (step) {
+    PracticeStep.Mission -> mission
+    PracticeStep.Wrong -> wrong
+    is PracticeStep.Hint -> hint
+    PracticeStep.Success -> success
 }
 
 /** 위쪽 가운데 알림 띠: 「● 차에서 ○○을 눌렀어요」. 차에서 정답 입력이 들어오면 먼저 뜬다. */
