@@ -73,6 +73,20 @@ data class CartryTypography(
     val caption: TextStyle,
     /** 완료 알약 22/600 — 시안 값 그대로. 글자 24 이상 규칙에 못 미친다(README 참고) */
     val pill: TextStyle,
+    /** 사진 카드 맨 위 꼬리표 「오늘의 추천 · 기본 기능」 26/600 */
+    val eyebrow: TextStyle,
+    /** 사진 카드 제목 아래 한 줄 설명 「약 1분 · …」 26/400 */
+    val meta: TextStyle,
+    /** 사진 위 알약 글자(날씨 칩 「지금」), 「기억해요」 라벨 24/700 */
+    val chip: TextStyle,
+    /** 접힌 힌트 줄의 한 줄 설명 「빗물 양에 맞춰 속도를 알아서 바꿔요」 22/400 (시안 23). 제목(24/700)보다 한 단계 작게. 글자 24 이상 규칙에 못 미친다 */
+    val hintNote: TextStyle,
+    /** 비교 카드 꼬리표 「목표」·「비슷한 기능」 18/800 (시안 20). 글자 24 이상 규칙에 못 미친다(pill 과 같이 확인 필요) */
+    val compareTag: TextStyle,
+    /** 비교 카드 제목 「오른쪽 레버는 와이퍼」 24/800 (시안 26) */
+    val compareTitle: TextStyle,
+    /** 비교 카드 설명 「한 칸 내리면 AUTO」 20/400 (시안 22). 글자 24 이상 규칙에 못 미친다 */
+    val compareBody: TextStyle,
 ) {
     companion object {
         /** @param numberFontFamily 앱 이름, 「1/4」, 큰 숫자용 좁은 글꼴(시안의 Barlow Semi Condensed). 없으면 fontFamily */
@@ -111,6 +125,14 @@ data class CartryTypography(
                 label = s(28, 700, letterSpacing = 0.02.em),
                 caption = s(26, 800, 40, letterSpacing = 0.08.em),
                 pill = s(22, 600),
+                eyebrow = s(26, 600),
+                meta = s(26, 400),
+                chip = s(24, 700),
+                hintNote = s(22, 400, 30),
+                // 시안은 20 · 26 · 22 지만, 지금 앱은 Pretendard 대신 기본 글꼴로 그려져 글자가 넓어서 카드 모양을 맞추려고 한 단계씩 줄였다
+                compareTag = s(18, 800, 28),
+                compareTitle = s(24, 800, 32),
+                compareBody = s(20, 400, 28),
             )
         }
     }

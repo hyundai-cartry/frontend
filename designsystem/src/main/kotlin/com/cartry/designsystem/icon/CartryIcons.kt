@@ -1047,6 +1047,13 @@ object CartryIcons {
         }.build()
     }
 
+    /** `p-map` — 선 아이콘, tint 로 색을 입힌다. 로드맵 버튼(시안 6.93 홈 헤더) */
+    val LineMap: ImageVector by lazy {
+        ImageVector.Builder(name = "p-map", defaultWidth = 31.dp, defaultHeight = 31.dp, viewportWidth = 31f, viewportHeight = 31f).apply {
+        addPath(pathData = addPathNodes("M19.2779 7.64984L11.3219 4.58984L3.67188 7.34384V25.7038L11.3219 22.9498M11.3219 4.58984V22.9498M11.3219 22.9498L19.2779 26.0098L26.9279 23.2558V4.89584L19.2779 7.64984M19.2779 7.64984V26.0098"), stroke = SolidColor(Color.Black), strokeLineWidth = 1.836f, strokeLineCap = StrokeCap.Butt, strokeLineJoin = StrokeJoin.Round)
+        }.build()
+    }
+
     /** `p-mic` — 선 아이콘, tint 로 색을 입힌다 */
     val LineMic: ImageVector by lazy {
         ImageVector.Builder(name = "p-mic", defaultWidth = 100.dp, defaultHeight = 100.dp, viewportWidth = 100f, viewportHeight = 100f).apply {
@@ -1121,6 +1128,15 @@ object CartryIcons {
         ImageVector.Builder(name = "p-seat", defaultWidth = 100.dp, defaultHeight = 100.dp, viewportWidth = 100f, viewportHeight = 100f).apply {
         addPath(pathData = addPathNodes("M30 20 L36 60 L72 60 L76 78 L24 78"), stroke = SolidColor(Color.Black), strokeLineWidth = 6f, strokeLineCap = StrokeCap.Round, strokeLineJoin = StrokeJoin.Round)
         addPath(pathData = addPathNodes("M36 60 Q30 40 30 20"), stroke = SolidColor(Color.Black), strokeLineWidth = 6f, strokeLineCap = StrokeCap.Butt, strokeLineJoin = StrokeJoin.Miter)
+        }.build()
+    }
+
+    /** `p-settings` — 선 아이콘, tint 로 색을 입힌다. 설정 버튼(시안 6.93 홈 헤더) */
+    val LineSettings: ImageVector by lazy {
+        ImageVector.Builder(name = "p-settings", defaultWidth = 31.dp, defaultHeight = 31.dp, viewportWidth = 31f, viewportHeight = 31f).apply {
+        addPath(pathData = addPathNodes("M24.6502 13.701C24.7385 14.221 24.7845 14.7553 24.7845 15.3005C24.7845 15.8456 24.7385 16.3799 24.6502 16.8999M23.0413 9.81883C22.4206 8.9437 21.6553 8.17837 20.7801 7.55768M16.898 5.94873C16.378 5.86043 15.8436 5.81445 15.2985 5.81445C14.7534 5.81445 14.219 5.86043 13.699 5.94873M9.81687 7.55768C8.94174 8.17837 8.17642 8.9437 7.55573 9.81883M5.94677 13.701C5.85848 14.221 5.8125 14.7553 5.8125 15.3005C5.8125 15.8456 5.85848 16.3799 5.94677 16.8999M7.55573 20.7821C8.17642 21.6572 8.94174 22.4225 9.81687 23.0432M13.699 24.6522C14.219 24.7405 14.7534 24.7865 15.2985 24.7865C15.8436 24.7865 16.378 24.7405 16.898 24.6522M20.7801 23.0432C21.6553 22.4225 22.4206 21.6572 23.0413 20.7821"), stroke = SolidColor(Color.Black), strokeLineWidth = 3.672f, strokeLineCap = StrokeCap.Butt, strokeLineJoin = StrokeJoin.Miter)
+        addPath(pathData = addPathNodes("M22.3377 15.2997C22.3377 19.1867 19.1867 22.3377 15.2997 22.3377C11.4127 22.3377 8.26172 19.1867 8.26172 15.2997C8.26172 11.4127 11.4127 8.26172 15.2997 8.26172C19.1867 8.26172 22.3377 11.4127 22.3377 15.2997Z"), stroke = SolidColor(Color.Black), strokeLineWidth = 1.836f, strokeLineCap = StrokeCap.Butt, strokeLineJoin = StrokeJoin.Miter)
+        addPath(pathData = addPathNodes("M17.7476 15.2996C17.7476 16.6516 16.6516 17.7476 15.2996 17.7476C13.9476 17.7476 12.8516 16.6516 12.8516 15.2996C12.8516 13.9476 13.9476 12.8516 15.2996 12.8516C16.6516 12.8516 17.7476 13.9476 17.7476 15.2996Z"), stroke = SolidColor(Color.Black), strokeLineWidth = 1.836f, strokeLineCap = StrokeCap.Butt, strokeLineJoin = StrokeJoin.Miter)
         }.build()
     }
 
@@ -1274,6 +1290,7 @@ object CartryIcons {
             "p-highbeam" to LineHighbeam,
             "p-hud" to LineHud,
             "p-key" to LineKey,
+            "p-map" to LineMap,
             "p-mic" to LineMic,
             "p-mirror" to LineMirror,
             "p-paddle" to LinePaddle,
@@ -1283,6 +1300,7 @@ object CartryIcons {
             "p-redo" to LineRedo,
             "p-search" to LineSearch,
             "p-seat" to LineSeat,
+            "p-settings" to LineSettings,
             "p-snow" to LineSnow,
             "p-sun" to LineSun,
             "p-svm" to LineSvm,

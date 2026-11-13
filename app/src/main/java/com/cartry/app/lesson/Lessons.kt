@@ -1,5 +1,6 @@
 package com.cartry.app.lesson
 
+import com.cartry.app.R
 import com.cartry.app.vehicle.CarControl
 import com.cartry.designsystem.icon.CartryIcons
 
@@ -27,10 +28,21 @@ object Lessons {
             LessonHint("비슷한 기능 비교", "부채꼴은 앞유리, 네모는 뒷유리 열선이에요."),
             LessonHint("이 자리에서는 여기예요", "공조 바 온도 오른쪽 첫 번째 버튼이에요."),
         ),
+        compare = LessonCompare(
+            targetTitle = "부채꼴은 앞유리",
+            targetBody = "앞유리에 바람을 보내요",
+            decoyTitle = "네모는 뒷유리 열선",
+            decoyBody = "뒷유리를 데워요",
+        ),
         carToast = "부채꼴 앞유리 버튼을 눌렀어요",
         successTitle = "앞유리 김서림 제거가 켜졌어요.",
         remember = "부채꼴 버튼은 앞유리 김서림 제거",
-        panel = PanelKind.Climate,
+        photos = LessonPhotos(
+            mission = R.drawable.practice_defrost_target,
+            wrong = R.drawable.practice_defrost_wrong,
+            hint = R.drawable.practice_defrost_hint,
+            success = R.drawable.practice_defrost_ok,
+        ),
     )
 
     val Wiper = Lesson(
@@ -51,10 +63,21 @@ object Lessons {
             LessonHint("비슷한 기능 비교", "왼쪽 레버는 방향지시등, 오른쪽 레버는 와이퍼예요."),
             LessonHint("이 자리에서는 여기예요", "핸들 오른쪽 레버를 한 칸 내리면 AUTO예요."),
         ),
+        compare = LessonCompare(
+            targetTitle = "오른쪽 레버는 와이퍼",
+            targetBody = "한 칸 내리면 AUTO",
+            decoyTitle = "왼쪽 레버는 방향지시등",
+            decoyBody = "내리면 왼쪽, 올리면 오른쪽",
+        ),
         carToast = "와이퍼 레버를 AUTO로 내렸어요",
         successTitle = "와이퍼가 AUTO로 바뀌었어요.",
         remember = "오른쪽 레버 한 칸 아래는 AUTO",
-        panel = PanelKind.Wiper,
+        photos = LessonPhotos(
+            mission = R.drawable.practice_wiper_target,
+            wrong = R.drawable.practice_wiper_wrong,
+            hint = R.drawable.practice_wiper_hint,
+            success = R.drawable.practice_wiper_ok,
+        ),
     )
 
     val WindowLock = Lesson(
@@ -75,10 +98,21 @@ object Lessons {
             LessonHint("비슷한 기능 비교", "화살표 스위치는 창문을 여닫고, 끝 버튼은 잠가요."),
             LessonHint("이 자리에서는 여기예요", "운전석 창문 스위치 4개 오른쪽 끝 버튼이에요."),
         ),
+        compare = LessonCompare(
+            targetTitle = "끝 버튼은 잠금",
+            targetBody = "뒷좌석 스위치를 잠가요",
+            decoyTitle = "화살표는 창문 여닫기",
+            decoyBody = "누르면 열리고 당기면 닫혀요",
+        ),
         carToast = "뒷좌석 창문 잠금 버튼을 눌렀어요",
         successTitle = "뒷좌석 창문이 잠겼어요.",
         remember = "스위치 줄 끝 버튼은 창문 잠금",
-        panel = PanelKind.Window,
+        photos = LessonPhotos(
+            mission = R.drawable.practice_window_target,
+            wrong = R.drawable.practice_window_wrong,
+            hint = R.drawable.practice_window_hint,
+            success = R.drawable.practice_window_ok,
+        ),
     )
 
     val all = listOf(Defrost, Wiper, WindowLock)

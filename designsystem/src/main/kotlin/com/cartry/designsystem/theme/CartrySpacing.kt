@@ -29,6 +29,8 @@ data class CartrySpacing(
     val screenHorizontal: Dp = 56.dp,
     /** 앱 헤더 높이 */
     val headerHeight: Dp = 112.dp,
+    /** 홈 헤더 검색창 너비 */
+    val headerSearchWidth: Dp = 540.dp,
     /** 누르는 영역 최소 크기 */
     val minTouch: Dp = 76.dp,
 )

@@ -7,7 +7,7 @@ UI 시안의 색·글자·모서리·간격을 **디자인 토큰**으로, 화�
 
 ![공통 컴포넌트 모음](docs/gallery.png)
 
-아이콘 87개: [docs/icons.png](docs/icons.png)
+아이콘 89개: [docs/icons.png](docs/icons.png) (그림에는 87개만 있다. `p-map`·`p-settings` 는 2026-11-14 에 Figma 1700 판 홈 헤더에서 옮겨 CartryIcons.kt 에 손으로 넣었다. 다음에 generate 를 돌리면 icons-svg 의 SVG 에서 다시 만들어진다)
 
 ## 용어
 
@@ -27,9 +27,9 @@ designsystem/
 ├─ src/main/kotlin/com/cartry/designsystem/
 │  ├─ theme/       토큰: CartryColors · CartryTypography · CartryShapes · CartrySpacing · CartryElevation · CartryTheme
 │  ├─ component/   공통 컴포넌트 (아래 표)
-│  ├─ icon/        CartryIcons.kt(아이콘 87개) · BuddyVector.kt(카트리 마스코트) — 자동 생성, 직접 고치지 않는다
+│  ├─ icon/        CartryIcons.kt(아이콘 89개) · BuddyVector.kt(카트리 마스코트) — 자동 생성, 직접 고치지 않는다
 │  └─ preview/     CartryComponentGallery · CartryIconGallery (모음 화면)
-├─ icons-svg/      아이콘 원본 SVG 88개(마스코트 포함). 아이콘을 고칠 때는 이 파일을 고친다
+├─ icons-svg/      아이콘 원본 SVG 90개(마스코트 포함). 아이콘을 고칠 때는 이 파일을 고친다
 └─ tools/svg_to_compose.py   SVG → Kotlin 변환기
 ```
 
