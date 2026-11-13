@@ -75,7 +75,25 @@ data class CartryColors(
 
     /** 카트리 마스코트 평상시 빛줄 */
     val buddyBar: Color = Color(0xFF3D9BFF),
+    /** 사진 카드 위에 COLOR 블렌드로 30% 덮는 남색(홈 추천·날씨 카드). BlendMode.Color 와 함께 쓴다 */
+    val photoTint: Color = Color(0x4D24406E),
+    /** 사진 위 알약(날씨 칩) 바탕, 흰색 12% */
+    val chipOnPhoto: Color = Color(0x1FFFFFFF),
+    /** 사진 위 글자 카드(실습 완료 화면의 달성률) 바탕 */
+    val panelOnPhoto: Color = Color(0x9E0C0E12),
+    /** 사진 위 십자선, 흰색 30% */
+    val photoGuide: Color = Color(0x4DFFFFFF),
 ) {
+    /**
+     * 사진 카드 위에 덮는 위→아래 그늘. 위쪽 글자와 아래쪽 버튼이 읽히도록 위·아래를 어둡게 한다.
+     * 시안 값: #0A0C10 을 0% 86% → 30% 62% → 50% 18% → 60~72% 0 → 100% 70%.
+     */
+    val photoShade: Brush
+        get() = Brush.verticalGradient(
+            0f to Color(0xDB0A0C10), 0.3f to Color(0x9E0A0C10), 0.5f to Color(0x2E0A0C10),
+            0.6f to Color(0x000A0C10), 0.72f to Color(0x000A0C10), 1f to Color(0xB20A0C10),
+        )
+
     /** 카드 위에 덮는 위→아래 광택(위 흰색 7.5% → 45% 지점 투명 → 아래 검정 12%). 바탕색 위에 한 겹 더 그린다. */
     val cardSheen: Brush
         get() = Brush.verticalGradient(0f to Color(0x13FFFFFF), 0.45f to Color(0x00FFFFFF), 1f to Color(0x1F000000))
