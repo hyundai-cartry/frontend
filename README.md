@@ -11,12 +11,7 @@
 
 </div>
 
-<!-- 📷 이미지 추가 ① | 대표 이미지
-CARTRY 로고가 보이는 홈 화면 또는 앱의 핵심 경험을 보여주는 가로형 배너를 추천합니다.
-이미지를 docs/images/cartry-cover.png에 넣은 뒤 아래 주석을 해제하세요.
-
-![CARTRY 대표 화면](docs/images/cartry-cover.png)
--->
+![CARTRY 대표 화면](designsystem/docs/starting_screen.png)
 
 ## 🚗 CARTRY 소개
 
@@ -43,13 +38,7 @@ CARTRY는 초보 운전자의 기본 조작 학습부터 숙련 운전자의 새
 
 **기능 설명 → 아이콘·유사 기능 비교 → 조작 위치 안내** 순서로 힌트를 제공하며, 사용자는 필요한 만큼 힌트를 확인한 뒤 다시 실습할 수 있습니다.
 
-<!-- 📷 이미지 추가 ② | 핵심 실습 흐름
-앞유리 김서림 제거 미션의 4개 화면을 나란히 보여주세요.
-① 미션 제시 → ② 잘못된 기능 조작 피드백 → ③ 힌트 → ④ 완료
-실제 앱 캡처 또는 짧은 GIF를 추천합니다.
-
-![CARTRY 실습 흐름](docs/images/practice-flow.png)
--->
+![CARTRY 실습 흐름](designsystem/docs/basic_function_screen.png)
 
 ## 📱 차량 연동 실습
 
