@@ -1,100 +1,218 @@
-# CARTRY
+<div align="center">
 
-**내 차의 기능, 직접 해보며 익히다.** — *Learn Your Car by Doing.*
+# CARTRY 🚘
 
-CARTRY 는 운전자에게 필요한 차량 기능을 맞춤형으로 추천하고, 실제 차량 조작과 차량 상태 피드백으로 사용법을 익히게 하는 차량용 학습 앱입니다. 현대자동차그룹 **Pleos Connect** 위에서 동작하며, 모든 실습은 주차 중에만 진행합니다.
+### 내 차의 기능, 직접 해보며 익히다.
 
-앱이 "앞유리가 뿌옇게 됐어요. 필요한 기능을 켜보세요." 같은 미션을 내면, 운전자는 주차된 내 차에서 실제 버튼과 레버를 조작합니다. CARTRY 는 Pleos Connect Vehicle SDK 로 바뀐 차량 상태를 읽어 목표를 달성했는지 판정하고, 비슷한 다른 기능을 눌렀다면 "지금은 뒷유리 열선이 켜졌어요."처럼 실제로 무엇이 바뀌었는지 알려 줍니다.
+**Learn Your Car by Doing.**
 
-![CARTRY 공통 컴포넌트](designsystem/docs/gallery.png)
+차량의 버튼과 레버를 직접 조작하고, 차량 상태 피드백으로 사용법을 익히는  
+**Pleos Connect 기반 차량 기능 학습 앱**
 
-## 왜 필요한가
+</div>
 
-- 운전자는 차량 기능을 **필요한 순간에야 처음 찾습니다.** 비 오는 날 출발한 뒤에 와이퍼 레버를 이리저리 돌려 보고, 앞유리 김서림을 없애려다 뒷유리 열선을 켭니다.
-- 신차 기능의 상당수는 쓰이지 않습니다. J.D. Power 조사(2015, 신차 오너 4,200명)에서 33개 기술 기능 중 16개를 오너의 20% 이상이 구매 후 90일 동안 한 번도 쓰지 않았습니다.
-- 알고 있어도 작동 방식은 모르는 경우가 많습니다. 미국 아이오와대 조사(운전자 2,015명)에서 40% 가 차가 예상과 다르게 작동한 경험이 있다고 답했습니다.
-- 설명서와 영상만으로는 **내 차의 어느 버튼인지, 제대로 작동시켰는지** 운전자가 스스로 판단해야 합니다.
-- 불편에서 끝나지 않습니다. 비 오는 날 교통사고 치사율은 맑은 날의 약 1.3배입니다(한국교통안전공단, 2023~2025).
+<!-- 📷 이미지 추가 ① | 대표 이미지
+CARTRY 로고가 보이는 홈 화면 또는 앱의 핵심 경험을 보여주는 가로형 배너를 추천합니다.
+이미지를 docs/images/cartry-cover.png에 넣은 뒤 아래 주석을 해제하세요.
 
-## 주요 기능
+![CARTRY 대표 화면](docs/images/cartry-cover.png)
+-->
 
-| 기능 | 하는 일 |
-| --- | --- |
-| 차량 상태 기반 학습 피드백 | 운전자가 실제 버튼·레버를 조작하면 차량 상태로 성공을 판정합니다. 다른 기능을 조작했으면 실제로 바뀐 상태와 목표 기능의 차이를 알려 주고, 기능 설명 → 아이콘 비교 → 조작 위치 안내의 3단계 힌트로 스스로 찾게 합니다 |
-| 날씨 기반 학습 추천 | 현재 위치의 날씨로 출발 전에 알아 두면 좋은 기능을 홈 화면에 추천합니다. 비 오는 날 와이퍼, 추운 날 앞유리 김서림 제거, 안개 낀 날 전조등·안개등 |
-| 숙련도별 학습 추천 | 처음 실행할 때 초보·능숙 코스를 고릅니다. 초보 운전자에게는 기본 조작 튜토리얼과 아직 익히지 않은 기본 기능을, 능숙 운전자에게는 드라이브 모드·운전 자세 메모리처럼 모르고 지나치기 쉬운 편의 기능을 추천합니다. 코스는 언제든 바꿀 수 있고 학습 기록은 유지됩니다 |
-| AI 기반 학습 검색 | "차 유리에 김이 꼈어"처럼 기능 이름을 몰라도 글이나 음성으로 상황을 말하면 맞는 학습 미션으로 연결합니다 |
-| 학습 기록·성취 관리 | 기능별 완료 여부와 힌트 사용 기록을 저장합니다. 힌트를 썼던 기능은 힌트 없이 다시 도전하도록 안내하고, 서로 다른 기능의 완료 개수로 등급 배지를 줍니다(왕초보 → 초보 탈출 → 자동차의 신) |
-| 주행 이력 기반 복습 추천 | 주행 중 와이퍼 대신 방향지시등·워셔액을 여러 번 작동시켰다면, 주차 후 "아까 와이퍼를 켜려고 하셨나요?"라며 복습을 제안합니다 (확장 기능) |
+## 🚗 CARTRY 소개
 
-## 차량 상태 판정 방식
+자동차에는 다양한 기능이 있지만, 막상 필요할 때 버튼의 위치나 조작 방법을 몰라 헤매는 경우가 있습니다. 설명서나 영상으로 사용법을 확인하더라도 **내 차에서 올바르게 조작했는지** 판단하기는 쉽지 않습니다.
 
-CARTRY 는 차량의 모든 상태를 보지 않고, 미션마다 성공 판정에 필요한 **목표 상태**와 헷갈리기 쉬운 **혼동 후보 상태**만 골라 감지합니다. 상태 변경 리스너가 있는 기능은 리스너로, 없는 기능은 미션 진행 중에만 주기적으로 조회합니다. 학습을 시작하기 전에 Vehicle SDK 의 Capability API 로 이 차가 해당 기능을 지원하는지 확인합니다.
+CARTRY는 이 과정을 **상황에 맞는 미션 → 실제 차량 조작 → 상태 기반 피드백**으로 바꿉니다. 사용자가 기능을 직접 켜거나 조작하면 Pleos Vehicle SDK로 차량 상태를 확인하고, 목표 기능을 정확히 작동시켰는지 알려줍니다. 비슷한 다른 기능을 조작했을 때도 무엇이 작동했는지 설명하고, 힌트를 통해 다시 시도하도록 돕습니다.
 
-| 미션 | 목표 상태 | 혼동 후보 | Vehicle SDK |
-| --- | --- | --- | --- |
-| 앞유리 김서림 제거 | 앞유리 디프로스터 ON | 뒷유리 열선 ON, 풍량 변경 | `getHvacDefrosterState`, `registerHvacDefrosterState`, `registerHvacFanSpeed` |
-| 와이퍼 조작 | 앞유리 와이퍼 AUTO | LOW·HIGH 등 다른 모드, 후면 와이퍼 | `getCurrentWiperSwitch`, `getCurrentWiperState` |
-| 뒷좌석 창문 조작 잠금 | 창문 조작 잠금 ON | 창문 위치 변경, 도어 잠금 변경 | `getCurrentWindowLockState`, `registerWindowLockState`, `registerWindowPosition` |
+> **CARTRY의 핵심은 차량 자체가 학습 도구가 된다는 점입니다.**  
+> 단순히 사용법을 읽는 대신, **사용자의 조작과 차량의 반응이 이어지는 상호작용형 학습 경험**을 제공합니다.
 
-## 구현 범위
+CARTRY는 초보 운전자의 기본 조작 학습부터 숙련 운전자의 새로운 편의 기능 탐색까지 폭넓은 학습 경험을 지향합니다. 날씨와 운전 상황에 따른 추천, 자연어 검색, 학습 기록을 통해 차량 기능을 필요한 순간에 익히고 다시 활용하는 서비스를 만들어갑니다.
 
-| 단계 | 내용 | 상태 |
+## ✨ 핵심 학습 경험
+
+### 1. 실제 차량을 직접 조작하는 미션
+
+사용자는 주차된 차량에서 화면이 제시하는 상황에 따라 실제 버튼이나 레버를 조작합니다. 앱은 조작 결과를 차량 데이터로 확인하여 미션을 진행합니다.
+
+### 2. 잘못 조작해도 배울 수 있는 피드백
+
+앞유리 김서림 제거를 켜야 하는데 뒷유리 열선을 켰다면, CARTRY는 단순히 실패를 표시하지 않습니다. **실제로 켜진 기능과 목표 기능의 차이**를 알려주어 비슷한 기능을 구분할 수 있게 합니다.
+
+### 3. 스스로 찾도록 돕는 3단계 힌트
+
+**기능 설명 → 아이콘·유사 기능 비교 → 조작 위치 안내** 순서로 힌트를 제공하며, 사용자는 필요한 만큼 힌트를 확인한 뒤 다시 실습할 수 있습니다.
+
+<!-- 📷 이미지 추가 ② | 핵심 실습 흐름
+앞유리 김서림 제거 미션의 4개 화면을 나란히 보여주세요.
+① 미션 제시 → ② 잘못된 기능 조작 피드백 → ③ 힌트 → ④ 완료
+실제 앱 캡처 또는 짧은 GIF를 추천합니다.
+
+![CARTRY 실습 흐름](docs/images/practice-flow.png)
+-->
+
+## 📱 차량 연동 실습
+
+CARTRY의 실습 화면은 **미션 안내, 잘못된 조작 피드백, 힌트, 완료** 단계로 이어집니다. 다음 세 가지 미션을 통해 차량의 실제 상태 변화에 반응하는 학습 흐름을 구성했습니다.
+
+| 학습 미션 | 목표 조작 | 헷갈리기 쉬운 기능 |
 | --- | --- | --- |
-| 공통 화면 부품 | 디자인 토큰, 공통 컴포넌트, 아이콘 87개 ([designsystem](designsystem/README.md)) | 완료 |
-| 1단계 | 앞유리 김서림 제거 · 와이퍼 조작 · 뒷좌석 창문 조작 잠금 미션 + 날씨 기반 추천 | 진행 중 |
-| 1단계 | 능숙 운전자 편의 기능 미션 1개 | 진행 중 |
-| 2단계 | 숙련도별 추천, AI 학습 검색, 학습 기록·배지 통합, 학습 콘텐츠 확대 | 계획 |
-| 3단계 | 주행 이력 기반 복습 추천 | 계획 |
-
-## 기술 스택과 구조
-
-| 영역 | 사용 기술 |
-| --- | --- |
-| 앱 | Android Automotive OS 기반 Pleos Connect 네이티브 앱, Kotlin, Jetpack Compose |
-| 차량 연동 | Pleos Connect Vehicle SDK 2.3.2 (상태 조회 get, 변경 리스너 register, Capability API) |
-| 위치·음성 | Pleos FusedLocation SDK, Pleos SpeechToText / TextToSpeech SDK |
-| 외부 데이터 | 기상청 단기예보 조회서비스 |
-| 로컬 저장 | Room (학습 기록), DataStore (코스 설정) |
-| 외부 백엔드 | Spring Boot, PostgreSQL |
-| 테스트 | Pleos Connect Emulator, Virtual Console |
+| 앞유리 김서림 제거 | 앞유리 디프로스터 켜기 | 뒷유리 열선 |
+| 와이퍼 AUTO | 앞유리 와이퍼를 AUTO로 설정 | 방향지시등 |
+| 뒷좌석 창문 잠금 | 뒷좌석 창문 조작 잠금 켜기 | 뒷좌석 창문 열기 |
 
 ```mermaid
-%%{init: {"flowchart": {"wrappingWidth": 440}}}%%
+flowchart LR
+    A["학습 미션 선택"] --> B["실제 차량 조작"]
+    B --> C{"차량 상태 확인"}
+    C -->|목표 상태 달성| D["학습 완료"]
+    C -->|다른 기능 조작| E["조작 결과 피드백"]
+    E --> F["3단계 힌트"]
+    F --> B
+```
+
+홈에서는 추천된 미션을 바로 시작하거나 **다른 기능 보기**를 통해 다른 실습을 선택할 수 있습니다. 실습 화면은 차량 상태에 따라 안내 문구와 시각적 피드백을 전환합니다.
+
+<!-- 📷 이미지 추가 ③ | 홈과 실습 화면
+홈의 추천 카드 1장과 실습 진행 화면 1장을 함께 보여주세요.
+
+![CARTRY 홈과 실습 화면](docs/images/home-and-practice.png)
+-->
+
+## 🛠 기술 스택
+
+| 영역 | 기술 |
+| --- | --- |
+| 플랫폼 | Android Automotive OS · Pleos Connect |
+| 언어 | Kotlin |
+| UI | Jetpack Compose · Material 3 · 자체 디자인 시스템 |
+| 화면 이동 | Navigation Compose |
+| 상태 관리 | ViewModel · StateFlow · Kotlin Coroutines |
+| 차량 연동 | Pleos Vehicle SDK `2.3.2` |
+| 빌드 | Gradle Kotlin DSL · Android Gradle Plugin `9.5.1` |
+
+앱은 `:app`과 `:designsystem` 두 개의 Gradle 모듈로 구성되어 있습니다.
+
+### 차량 상태 판정
+
+차량 조작을 단순한 화면 터치로 대체하지 않고, **Vehicle SDK에서 전달받은 상태 변화**를 기반으로 실습 결과를 판정합니다.
+
+- **목표·혼동 상태 감지:** 미션에 필요한 차량 기능만 선택해 상태를 관찰합니다.
+- **상태 변화 판정:** 기능이 이미 켜져 있는 경우와 실습 중 `OFF → ON`으로 바뀐 경우를 구분합니다.
+- **리스너·주기적 조회 병행:** 이벤트 리스너를 활용하고, 와이퍼 AUTO 여부는 스위치 설정값을 별도로 조회합니다.
+- **차량 기능별 상태 처리:** 전·후면 디프로스터, 와이퍼, 방향지시등, 창문 잠금·열림 상태를 각각 처리합니다.
+- **실습 생명주기 관리:** 화면 종료 시 등록한 리스너와 주기적 조회 작업을 정리합니다.
+
+주요 구현은 [`PleosCarStateSource.kt`](app/src/main/java/com/cartry/app/vehicle/PleosCarStateSource.kt)와 [`PracticeViewModel.kt`](app/src/main/java/com/cartry/app/practice/PracticeViewModel.kt)에서 확인할 수 있습니다.
+
+## 🧩 프론트엔드 구조
+
+```mermaid
 flowchart TB
-    UI["화면 · Jetpack Compose<br/>홈 · 미션 · 3단계 힌트 · 검색 · 학습 기록"]
-    EN["앱 내부 학습 로직<br/>Mission Engine — 목표·혼동 상태 판정<br/>Recommendation Engine — 날씨·숙련도·기록 기반 추천<br/>Search Engine — 키워드·자연어 검색<br/>Learning Engine — 기록·재도전·배지<br/>Capability Manager — 차량 기능 지원 확인<br/>Safety Manager — 주차 중에만 실습"]
-    VR[Vehicle Repository]
-    WR[Weather Repository]
-    LR[Learning Repository]
-    SDK[Pleos Connect Vehicle SDK]
-    EXT["FusedLocation SDK<br/>기상청 단기예보"]
-    DB[(Room · DataStore)]
-    UI <--> EN
-    EN <--> VR & WR & LR
-    VR <--> SDK
-    WR <--> EXT
-    LR <--> DB
+    A["MainActivity"] --> N["CartryNavHost"]
+    N --> H["HomeScreen"]
+    N --> P["PracticeScreen"]
+    H <--> HV["HomeViewModel"]
+    P <--> PV["PracticeViewModel"]
+    HV --> L["Lesson · Lessons"]
+    PV --> L
+    SDK["Pleos Vehicle SDK"] --> V["PleosCarStateSource"]
+    V --> PV
+    DS["designsystem"] -.-> H
+    DS -.-> P
 ```
 
-## 저장소 구성
+화면은 **Jetpack Compose**, 실습 단계와 차량 상태 관리는 **ViewModel·StateFlow**, 차량 SDK와의 통신은 **`PleosCarStateSource`**가 담당합니다. 미션별 목표 상태, 혼동 후보, 피드백 문구, 힌트와 이미지는 `Lesson` 모델로 구성해 공통 실습 화면에서 활용합니다.
 
-```
+```text
 frontend/
-├─ designsystem/   디자인 토큰 · 공통 컴포넌트 · 아이콘 (Jetpack Compose)
-├─ CONTRIBUTING.md 팀 작업 안내 (개발 환경, 브랜치·PR 규칙, 코드 리뷰)
-└─ .github/        PR 자동 코드 리뷰 설정
+├── app/
+│   └── src/main/java/com/cartry/app/
+│       ├── MainActivity.kt
+│       ├── home/          # 홈 화면과 추천 상태
+│       ├── lesson/        # 미션 데이터·학습 콘텐츠
+│       ├── navigation/    # 화면 이동
+│       ├── practice/      # 실습 UI·상태 판정·힌트
+│       └── vehicle/       # Pleos Vehicle SDK 연동
+├── designsystem/         # 테마·공통 컴포넌트·아이콘
+├── gradle/               # Gradle Wrapper·버전 설정
+├── CONTRIBUTING.md       # 개발 및 협업 가이드
+└── settings.gradle.kts
 ```
 
-## 실행 환경
+## 🎨 디자인 시스템
 
-- Android Studio, JDK 17, Kotlin
-- Pleos Connect Emulator 2.1.0 (Android API 34 system image), 앱 minSdk 28 이상
-- 에뮬레이터는 외장 그래픽 카드가 필요합니다. 자세한 설정은 [CONTRIBUTING](CONTRIBUTING.md#개발-환경-pleos-개발자-문서-원문-기준-2026-11-10-확인)
+CARTRY의 다크 테마 UI는 별도의 [`designsystem`](designsystem/README.md) 모듈에서 관리합니다. 색상, 타이포그래피, 모서리, 간격을 디자인 토큰으로 통일하고, 버튼·카드·상태 표시·단계 진행·마스코트 등을 재사용 가능한 Compose 컴포넌트로 구성했습니다.
 
-## 참고
+![CARTRY 디자인 시스템 컴포넌트](designsystem/docs/gallery.png)
 
-- [Pleos Connect 개발자 문서](https://document.pleos.ai/docs/pleos-only/getting-started), [Vehicle SDK](https://document.pleos.ai/docs/pleos-only/connect-sdk-pleos/Vehicle/intro)
-- J.D. Power (2015). *2015 Driver Interactive Vehicle Experience (DrIVE) Report*
-- University of Iowa Public Policy Center (2015). *National Consumer Survey of Driving Safety Technologies*
-- 한국교통안전공단 교통사고분석시스템(TAAS). 2023~2025년 기상상태별 교통사고 통계
+화면 디자인과 실습 단계는 Android Studio의 Compose Preview에서도 확인할 수 있습니다.
+
+## 🚀 시작하기
+
+### 개발 환경
+
+- Android Studio 및 Android SDK **37**
+- 프로젝트 Gradle Daemon toolchain: **JDK 25**
+- Pleos Connect Emulator · Virtual Console (차량 연동 실습)
+- Pleos Maven 저장소에 접근 가능한 개발 환경
+
+`minSdk`는 28이며, 앱은 Pleos Connect의 가로형 화면에 맞춰 구성되어 있습니다.
+
+### 프로젝트 실행
+
+```bash
+git clone https://github.com/hyundai-cartry/frontend.git
+cd frontend
+
+# 디버그 APK 빌드
+./gradlew :app:assembleDebug
+```
+
+Android Studio에서 프로젝트를 열어 Gradle Sync를 마친 뒤 `app` 실행 구성을 선택해 실행할 수도 있습니다.
+
+빌드된 APK는 다음 경로에서 확인할 수 있습니다.
+
+```text
+app/build/outputs/apk/debug/app-debug.apk
+```
+
+### 에뮬레이터에 설치
+
+```bash
+adb devices
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb shell am start -n com.cartry.app/.MainActivity
+```
+
+차량 상태를 사용하는 실습은 **Pleos Connect Emulator와 Virtual Console**을 활용해 확인합니다. 에뮬레이터 준비 및 팀 개발 환경은 [CONTRIBUTING.md](CONTRIBUTING.md)를 참고하세요.
+
+## 🎬 시연 가이드
+
+앞유리 김서림 제거 미션을 예로 들면 다음 흐름을 확인할 수 있습니다.
+
+1. 홈에서 **앞유리 김서림 제거** 미션을 선택합니다.
+2. Virtual Console에서 **뒷유리 열선**을 켜 오조작 피드백을 확인합니다.
+3. **기능 설명 → 아이콘 비교 → 조작 위치 안내** 힌트를 확인합니다.
+4. **앞유리 디프로스터**를 켜 차량 조작 알림과 완료 화면을 확인합니다.
+5. **다시 해 보기**를 선택해 동일한 미션을 반복할 수 있습니다.
+
+<!-- 🎞 시연 영상 추가
+여기에 시연 영상의 GitHub 링크 또는 유튜브 영상 썸네일을 넣어주세요.
+
+[![CARTRY 시연 영상](docs/images/demo-thumbnail.png)](시연-영상-URL)
+-->
+
+## 🤝 함께 개발하기
+
+브랜치 운영, Pull Request, 코드 리뷰 및 개발 환경에 관한 내용은 [CONTRIBUTING.md](CONTRIBUTING.md)에 정리되어 있습니다.
+
+---
+
+<div align="center">
+
+**CARTRY — 차량을 이해하는 가장 확실한 방법, 직접 해보는 것.**
+
+[Frontend Repository](https://github.com/hyundai-cartry/frontend) · [CARTRY GitHub Organization](https://github.com/hyundai-cartry)
+
+</div>
