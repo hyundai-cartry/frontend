@@ -122,7 +122,7 @@ flowchart TB
     DS -.-> P
 ```
 
-화면은 **Jetpack Compose**, 실습 단계와 차량 상태 관리는 **ViewModel·StateFlow**, 차량 SDK와의 통신은 **`PleosCarStateSource`**가 담당합니다. 미션별 목표 상태, 혼동 후보, 피드백 문구, 힌트와 이미지는 `Lesson` 모델로 구성해 공통 실습 화면에서 활용합니다.
+화면은 **Jetpack Compose**, 실습 단계와 차량 상태 관리는 **ViewModel·StateFlow**, 차량 SDK와의 통신은 `PleosCarStateSource`가 담당합니다. 미션별 목표 상태, 혼동 후보, 피드백 문구, 힌트와 이미지는 `Lesson` 모델로 구성해 공통 실습 화면에서 활용합니다.
 
 ```text
 frontend/
@@ -203,9 +203,6 @@ adb shell am start -n com.cartry.app/.MainActivity
 [![CARTRY 시연 영상](docs/images/demo-thumbnail.png)](시연-영상-URL)
 -->
 
-## 🤝 함께 개발하기
-
-브랜치 운영, Pull Request, 코드 리뷰 및 개발 환경에 관한 내용은 [CONTRIBUTING.md](CONTRIBUTING.md)에 정리되어 있습니다.
 
 ---
 
