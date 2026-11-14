@@ -115,6 +115,7 @@ flowchart TB
 
 ```text
 frontend/
+├── apk/
 ├── app/
 │   └── src/main/java/com/cartry/app/
 │       ├── MainActivity.kt
@@ -181,7 +182,7 @@ Android Studio에서 프로젝트를 열어 Gradle Sync를 마친 뒤 `app` 실�
 빌드된 APK는 다음 경로에서 확인할 수 있습니다.
 
 ```text
-app/build/outputs/apk/debug/app-debug.apk
+https://github.com/hyundai-cartry/frontend/blob/main/apk/Meonjakgae_CARTRY_release.apk
 ```
 
 ### 에뮬레이터에 설치
