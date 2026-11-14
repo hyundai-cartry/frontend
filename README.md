@@ -148,6 +148,24 @@ CARTRY의 다크 테마 UI는 별도의 [`designsystem`](designsystem/README.md)
 
 `minSdk`는 28이며, 앱은 Pleos Connect의 가로형 화면에 맞춰 구성되어 있습니다.
 
+### 테스트 환경 및 화면 규격
+
+| 항목 | 환경 |
+| --- | --- |
+| 개발 도구 | Android Studio |
+| Pleos Connect Emulator | 2.1.0 |
+| 에뮬레이터 System Image | Android API 34 |
+| 에뮬레이터 설정 | RAM 4GB, Cold Boot |
+| 화면 규격 | Connect-S-17, 17인치, 2560 × 1440dp, 160dpi |
+| CARTRY 앱 화면 | 1700 × 1184dp (Landscape) |
+| 차량 상태 테스트 | Pleos Virtual Console |
+| 차량 연동 SDK | Pleos Vehicle SDK 2.3.2 |
+
+차량 상태 연동 테스트는 Pleos Connect Emulator와 Virtual Console을 사용합니다. Virtual Console에서 차량 기능의 상태를 변경하여 미션 판정과 피드백을 확인할 수 있습니다.
+
+에뮬레이터 실행에는 외장 그래픽 카드가 필요합니다. 자세한 개발 환경 설정은 [CONTRIBUTING.md](CONTRIBUTING.md)를 참고하세요.
+
+
 ### 프로젝트 실행
 
 ```bash
