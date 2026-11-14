@@ -17,3 +17,7 @@ local.properties
 .kotlin
 # 모든 모듈의 빌드 결과물
 build/
+# release 서명 키와 비밀번호 — 절대 커밋하지 않는다
+keystore.properties
+*.jks
+*.keystore
